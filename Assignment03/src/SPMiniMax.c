@@ -15,11 +15,11 @@ int spMinimaxSuggestMove(SPFiarGame* currentGame, unsigned int maxDepth){
 	int childvalue = 0;
 	int max = INT_MIN;
 	int maxCol = -1;
-	bool isNotFull = false;
+//	bool isNotFull = false;
 	char WhoCallMe = spFiarGameGetCurrentPlayer(currentGame);
 	for(int col = 0; col < SP_FIAR_GAME_N_COLUMNS; ++col){
 		if (spFiarGameIsValidMove(currentGame,col)){
-			isNotFull = true;
+//			isNotFull = true;
 			spFiarGameSetMove(currentGame,col);
 			childvalue = spRecursiveMiniMax(currentGame,maxDepth-1,false,WhoCallMe);
 			if(max < childvalue || maxCol == -1){
@@ -29,7 +29,7 @@ int spMinimaxSuggestMove(SPFiarGame* currentGame, unsigned int maxDepth){
 			spFiarGameUndoPrevMove(currentGame);
 		}
 	}
-	if(isNotFull == false) return utilityFunction(currentGame,WhoCallMe);
+	//if(isNotFull == false) return utilityFunction(currentGame,WhoCallMe);
 	return maxCol;
 }
 
@@ -46,25 +46,25 @@ int spRecursiveMiniMax(SPFiarGame* currentGame,unsigned int maxDepth,bool flag,c
 	if (maxDepth == 0) return utilityFunction(currentGame,whoCalledMe);
 	int childvalue = 0;
 	int value = flag ? INT_MIN : INT_MAX;
-	bool isNotFull = false;
+//	bool isNotFull = false;
 	for(int col = 0; col < SP_FIAR_GAME_N_COLUMNS; ++col){
 		if (spFiarGameIsValidMove(currentGame,col)){
-			isNotFull = true;
+//			isNotFull = true;
 			spFiarGameSetMove(currentGame,col);
 			childvalue = spRecursiveMiniMax(currentGame,maxDepth-1,!flag,whoCalledMe);
 			value = flag ? max(value,childvalue) : min(value,childvalue);
 			spFiarGameUndoPrevMove(currentGame);
 		}
 	}
-	if(isNotFull == false) {
-		char winner = spFiarCheckWinner(currentGame);
-		if(winner != '\0'){
-			if(winner == SP_FIAR_GAME_PLAYER_1_SYMBOL || winner == SP_FIAR_GAME_PLAYER_2_SYMBOL){
-				return (winner == whoCalledMe) ? INT_MAX : INT_MIN;
-			}
-			else return utilityFunction(currentGame,whoCalledMe);
-		}
-	}
+//	if(isNotFull == false) {
+//		char winner = spFiarCheckWinner(currentGame);
+//		if(winner != '\0'){
+//			if(winner == SP_FIAR_GAME_PLAYER_1_SYMBOL || winner == SP_FIAR_GAME_PLAYER_2_SYMBOL){
+//				return (winner == whoCalledMe) ? INT_MAX : INT_MIN;
+//			}
+//			else return utilityFunction(currentGame,whoCalledMe);
+//		}
+//	}
 	return value;
 }
 
